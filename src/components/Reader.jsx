@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import T from 'prop-types';
+import queryString from 'query-string';
 import Controls from './Controls';
 import Counter from './Counter';
 import Publication from './Publication';
@@ -18,19 +19,50 @@ class Reader extends Component {
   };
 
   state = {
-    currentArticle: 0,
+    currentArticle: 1,
+  };
+
+  componentDidMount() {
+    if (!this.props.location.search) {
+      this.props.history.push({
+        ...this.props.location,
+        search: `item=1`,
+      });
+      return;
+    }
+    const { item } = queryString.parse(this.props.location.search);
+    this.setState({
+      currentArticle: Number(item),
+    });
+    this.updateAddress();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { item: prevArticle } = queryString.parse(prevProps.location.search);
+    const { item: nextArticle } = queryString.parse(this.props.location.search);
+    if (prevArticle === nextArticle) {
+      return;
+    }
+    // eslint-disable-next-line react/no-did-update-set-state
+    this.setState({
+      currentArticle: Number(nextArticle),
+    });
+  }
+
+  updateAddress = (step = 0) => {
+    const { item } = queryString.parse(this.props.location.search);
+    this.props.history.push({
+      ...this.props.location,
+      search: `item=${Number(item) + step}`,
+    });
   };
 
   nextArticle = () => {
-    this.setState(prevState => ({
-      currentArticle: prevState.currentArticle + 1,
-    }));
+    this.updateAddress(1);
   };
 
   prevArticle = () => {
-    this.setState(prevState => ({
-      currentArticle: prevState.currentArticle - 1,
-    }));
+    this.updateAddress(-1);
   };
 
   render() {
@@ -42,14 +74,11 @@ class Reader extends Component {
         <Controls
           nextArticle={this.nextArticle}
           prevArticle={this.prevArticle}
-          nextDisabled={currentArticle >= items.length - 1}
-          prevDisabled={currentArticle <= 0}
+          nextDisabled={currentArticle >= items.length}
+          prevDisabled={currentArticle <= 1}
         />
-        <Counter
-          currentArticle={currentArticle + 1}
-          allArticles={items.length}
-        />
-        <Publication article={items[currentArticle]} />
+        <Counter currentArticle={currentArticle} allArticles={items.length} />
+        <Publication article={items[currentArticle - 1]} />
       </div>
     );
   }

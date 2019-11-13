@@ -8,6 +8,7 @@ const App = () => {
     <BrowserRouter>
       <Route
         path="/reader"
+        // eslint-disable-next-line react/jsx-props-no-spreading
         render={props => <Reader {...props} items={publications} />}
       />
     </BrowserRouter>
