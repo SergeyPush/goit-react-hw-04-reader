@@ -16,6 +16,9 @@ class Reader extends Component {
         title: T.string.isRequired,
       }),
     ).isRequired,
+    location: T.object.isRequired,
+    search: T.object.isRequired,
+    history: T.object.isRequired,
   };
 
   state = {
@@ -23,14 +26,20 @@ class Reader extends Component {
   };
 
   componentDidMount() {
-    if (!this.props.location.search) {
-      this.props.history.push({
-        ...this.props.location,
-        search: `item=1`,
+    const { currentArticle } = this.state;
+    const { location, history } = this.props;
+    const {
+      location: { search },
+    } = this.props;
+
+    if (!search) {
+      history.push({
+        ...location,
+        search: `item=${currentArticle}`,
       });
       return;
     }
-    const { item } = queryString.parse(this.props.location.search);
+    const { item } = queryString.parse(search);
     this.setState({
       currentArticle: Number(item),
     });
@@ -38,8 +47,11 @@ class Reader extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const {
+      location: { search },
+    } = this.props;
     const { item: prevArticle } = queryString.parse(prevProps.location.search);
-    const { item: nextArticle } = queryString.parse(this.props.location.search);
+    const { item: nextArticle } = queryString.parse(search);
     if (prevArticle === nextArticle) {
       return;
     }
