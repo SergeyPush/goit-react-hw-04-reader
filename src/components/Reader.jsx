@@ -17,7 +17,6 @@ class Reader extends Component {
       }),
     ).isRequired,
     location: T.object.isRequired,
-    search: T.object.isRequired,
     history: T.object.isRequired,
   };
 

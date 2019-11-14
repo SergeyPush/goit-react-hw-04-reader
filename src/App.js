@@ -12,9 +12,6 @@ const App = () => {
           // eslint-disable-next-line react/jsx-props-no-spreading
           render={props => <Reader {...props} items={publications} />}
         />
-        <Route exact path="/">
-          <Redirect to="/reader" />
-        </Route>
         <Redirect to="/reader" />
       </Switch>
     </BrowserRouter>
