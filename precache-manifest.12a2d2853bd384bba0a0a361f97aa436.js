@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ef0b824633376b78fc395c00139c2a9f",
+    "revision": "7860732b7ec62e089110434ec15996e8",
     "url": "/goit-react-hw-04-reader/index.html"
   },
   {
-    "revision": "a28b23d87bb15b4cd8d1",
+    "revision": "45fea8e068c7964c9e62",
     "url": "/goit-react-hw-04-reader/static/css/main.3a4b4350.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/goit-react-hw-04-reader/static/js/2.1af80984.chunk.js"
   },
   {
-    "revision": "a28b23d87bb15b4cd8d1",
-    "url": "/goit-react-hw-04-reader/static/js/main.80379033.chunk.js"
+    "revision": "45fea8e068c7964c9e62",
+    "url": "/goit-react-hw-04-reader/static/js/main.d83303ae.chunk.js"
   },
   {
     "revision": "823667672d9a6097ea06",
